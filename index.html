@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaiser — Portfolio</title>
+  <meta name="description" content="BSIT student, content creator, and aspiring UI/UX designer.">
+  <link rel="icon" href="images/profile-light.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============================================
+       CSS-ONLY DARK / LIGHT MODE
+       This checkbox has no visual form of its own.
+       Its :checked state is read by CSS further down
+       (search "MODE TOGGLE LOGIC" in styles.css) to
+       flip every color variable AND swap the avatar.
+       ============================================ -->
+  <input type="checkbox" id="mode-toggle" class="visually-hidden-input">
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand">KAISER</a>
+
+      <!-- mobile menu, also checkbox-driven, no JS -->
+      <input type="checkbox" id="nav-toggle" class="visually-hidden-input">
+      <label for="nav-toggle" class="nav-burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#interests">Interests</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <label for="mode-toggle" class="mode-switch" aria-label="Toggle dark mode">
+        <span class="mode-switch-track">
+          <span class="mode-switch-thumb">
+            <!-- sun -->
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+            <!-- moon -->
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+          </span>
+        </span>
+      </label>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">3rd Year BSIT Student · Design Enthusiast</p>
+          <h1>HI, I'M <span class="accent">KAISER BENEDICT A. COLES</span></h1>
+          <p class="hero-tagline">
+            I build things at the intersection of code, design, and storytelling - currently leveling up in UI/UX while exploring the world of Artficial Intelligence and upskilling my guitar skills while gaming.
+          </p>
+          <div class="hero-tags">
+            <span class="tag">Gaming</span>
+            <span class="tag">Graphic Design</span>
+            <span class="tag">UI/UX</span>
+            <span class="tag">Guitar</span>
+          </div>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero-avatar">
+          <div class="avatar-frame">
+            <!-- Real photos. Same four classes as before, so the dark-mode +
+                 hover logic in styles.css keeps working without any changes. -->
+            <img class="avatar-img avatar-light-default" src="images/profile-light.png" alt="Kaiser, headshot">
+            <img class="avatar-img avatar-light-hover" src="images/profile-light-hover.png" alt="Kaiser, smiling">
+            <img class="avatar-img avatar-dark-default" src="images/profile-dark.png" alt="Kaiser, portrait against dark background">
+            <img class="avatar-img avatar-dark-hover" src="images/profile-dark-hover.png" alt="Kaiser, looking at camera against dark background">
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about" id="about">
+      <p class="eyebrow">About</p>
+      <h2>A BIT ABOUT ME</h2>
+      <div class="about-grid">
+        <p class="about-text">
+          I'm a 3rd year BSIT student at Eastern Samar State University, Philippines.
+          Outside of coursework, I spend a lot of time in design tools and editing software. Tools like Figma, Capcut, Photoshop, Davinci Resolve, and Canva are my playgrounds for building projects and experimenting with visual storytelling.
+        </p>
+        <ul class="quick-facts">
+          <li><span class="fact-label">Standing</span><span>3rd Year, BSIT</span></li>
+          <li><span class="fact-label">Based in</span><span>Borongan City, Eastern Samar, Philippines</span></li>
+          <li><span class="fact-label">Currently</span><span>Exploring Art Niches + leveling up UI/UX skills</span></li>
+          <li><span class="fact-label">Drawn to</span><span>Game Stories, Visual Storytelling, Art Niche, and Music</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ INTERESTS ============ -->
+    <section class="interests" id="interests">
+      <p class="eyebrow">Interests</p>
+      <h2>WHAT I'M INTO</h2>
+      <div class="interest-grid">
+        <article class="interest-card">
+          <h3>GAMING</h3>
+          <p>League of Legends: Wild Rift, God of War Series, Black Myth: Wukong and Assasin's Creed Series — for the strategy in one and the storytelling in the other.</p>
+        </article>
+        <article class="interest-card">
+          <h3>GUITAR</h3>
+          <p>Practicing scales, chords, and improvising solo as an ongoing hobby.</p>
+        </article>
+        <article class="interest-card">
+          <h3>GRAPHIC DESIGN </h3>
+          <p>Color grading, typography systems, and putting together a consistent visual identity for projects.</p>
+        </article>
+        <article class="interest-card">
+          <h3>UI/UX</h3>
+          <p>Figuring out how interfaces should feel, not just look — currently the design area I want to grow most in.</p>
+        </article>
+     
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="projects" id="projects">
+      <p class="eyebrow">Projects</p>
+      <h2>WHAT I BUILT THIS SCHOOL YEAR</h2>
+      <div class="project-grid">
+
+        
+
+        <article class="project-card">
+          <div class="project-card-head">
+            <h3>GEARSHIFT - POINT OF SALE SYSTEM</h3>
+            <span class="tag tag-small">School Year 2024-2025</span>
+          </div>
+          <p>
+            A project for BSIT in 1st year 2nd semester finals, with a team of 4 members. Gearshift is a point-of-sale system for hardware tools and equipment, built with a C# backend  Guna and Bunifu UI libraries. The system includes features for inventory management, sales tracking, and user authentication.
+          </p>
+          <ul class="project-meta">
+            <li>[Frontend Developer]</li>
+            <li>[C# with the use of Guna and Bunifu UI libraries]</li>
+            <li>[1.1 Grade for the project]</li>
+          </ul>
+          <a href="https://www.facebook.com/reel/1239273990911000" class="project-link" target="_blank" rel="noopener noreferrer">Watch the demo on my Facebook Account →</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-head">
+            <h3>CHEAPPIE</h3>
+            <span class="tag tag-small">School Year 2025-2026</span>
+          </div>
+          <p>
+            A project for BSIT in 2nd year 1st semester finals, with a team of 10 members. Cheappie is a website requirement for the subject of Entrepreneurship. The purpose of the website is to showcase the Cheappie business and its products. The website includes features such as product listing, contact form, and about us page. it is purely made from HTML and CSS only. 
+          <ul class="project-meta">
+            <li>[Web Developer]</li>
+            <li>[HTML and CSS]</li>
+            <li>[Best in Business name]</li>
+          </ul>
+          <a href="https://mikuze.github.io/CHEAPPIE/" class="project-link" target="_blank" rel="noopener noreferrer">Wanna see it? →</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-head">
+            <h3>PUYIT - TASKMANAGER</h3>
+            <span class="tag tag-small">School Year 2025-2026</span>
+          </div>
+          <p>
+            A project for BSIT in 2nd year 2nd semester finals, with a team of 10 members. Puyit is a task management system built with Php, Puyit is a website requirement for the subject Fundamentals of System Integration. The purpose of the website is to provide a platform for managing tasks and projects.          </p>
+          <ul class="project-meta">
+            <li>[Full Stack Developer]</li>
+            <li>[Php & MySQL]</li>
+            <li>[Very Good daw sabi ni sir Yape]</li>
+          </ul>
+          <div class="puyit-preview">
+            <input type="checkbox" id="puyit-img-toggle" class="visually-hidden-input">
+            <label for="puyit-img-toggle" class="puyit-thumb">
+              <img src="images/puyit_presentation.jpg" alt="Puyit Task Manager presentation screenshot">
+            </label>
+            <span class="puyit-caption"> Website domain got suspended :( </span>
+            <div class="lightbox" id="puyit-lightbox">
+              <label for="puyit-img-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+              <figure>
+                <img src="images/puyit_presentation.jpg" alt="Puyit Task Manager presentation screenshot">
+                <figcaption>Puyit — Task Manager Presentation</figcaption>
+              </figure>
+              <label for="puyit-img-toggle" class="lightbox-close" aria-label="Close">✕</label>
+            </div>
+          </div>
+          
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-head">
+            <h3>GRAPHIC DESIGNING</h3>
+            <span class="tag tag-small">Design</span>
+          </div>
+          <p>
+            Using Photoshop, Illustrator, Figma and Canva, I am able to create visually appealing designs for various purposes, including social media graphics, posters, and school projects. I focus on color grading, typography systems, and putting together a consistent visual identity for projects.
+          </p>
+          <ul class="project-meta">
+            <li>[Photoshop, Illustrator, Figma, Canva]</li>
+            <li>[Brutalism, Retro, Minimalism Design Niche]</li>
+          </ul>
+
+          <!-- ============ POSTER GALLERY (CSS-only lightbox) ============
+               How this works, step by step:
+
+               1. Every poster has its own hidden checkbox (see the
+                  "checkbox hack" note at the top of styles.css — it's the
+                  exact same trick already used by the dark/light switch
+                  and the mobile menu button).
+               2. The thumbnail below is a <label> pointing at that
+                  checkbox. Clicking a label is exactly the same as
+                  clicking the checkbox itself, so this opens the popup.
+               3. The popup (the .lightbox div, found further down with
+                  the matching id) only shows itself once its checkbox
+                  is checked. That rule lives in styles.css.
+               4. The dark backdrop and the ✕ button are ALSO just labels
+                  for the same checkbox, so clicking either one flips the
+                  checkbox back off and the popup disappears.
+
+               Why not just use a link to "#poster-01" like before?
+               Because a link changes the page's URL (it adds "#poster-01"
+               to the address bar), and the browser's normal reaction to a
+               URL change is to scroll to whatever has that id. Closing the
+               popup used a link to "#", which has no matching id at all,
+               so the browser's fallback was to scroll all the way back to
+               the top of the page. That's exactly the annoying jump this
+               page used to have. Checkboxes don't touch the URL at all,
+               so the scroll position never moves — problem solved, and
+               we still didn't need a single line of JavaScript. -->
+          <div class="poster-grid">
+            <label for="poster-01-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-01.png" alt="2-A class icon"></label>
+            <label for="poster-02-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-02.png" alt="3-A class icon"></label>
+            <label for="poster-03-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-03.jpg" alt="Mr. CCS pageant poster, Alecson Felicilda"></label>
+            <label for="poster-04-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-04.jpg" alt="Bizarre poster, red edition"></label>
+            <label for="poster-05-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-05.jpg" alt="Bizarre poster, cyber edition"></label>
+            <label for="poster-06-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-06.jpg" alt="Goodluck IT-2A poster"></label>
+            <label for="poster-07-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-07.jpg" alt="Butter With Better logo stamp"></label>
+            <label for="poster-08-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-08.jpg" alt="Dean's Lister congratulations post"></label>
+            <label for="poster-09-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-09.jpg" alt="Ms. CCS pageant poster, Danielle Frell Erojo"></label>
+            <label for="poster-10-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-10.jpg" alt="I'm Not a Phase poster"></label>
+            <label for="poster-11-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-11.jpg" alt="Mr. and Ms. BSIT 2A poster"></label>
+            <label for="poster-12-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-12.png" alt="Heart icon"></label>
+            <label for="poster-13-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-13.jpg" alt="Paikot-ikot Lang poster"></label>
+            <label for="poster-14-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-14.jpg" alt="Maikee's Letter poster"></label>
+            <label for="poster-15-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-15.jpg" alt="Memoire poster"></label>
+            <label for="poster-16-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-16.jpg" alt="Stop Hiding poster"></label>
+            <label for="poster-17-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-17.jpg" alt="The Man Who Can't Be Moved poster"></label>
+            <label for="poster-18-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-18.jpg" alt="Welcome BSIT-2A poster"></label>
+            <label for="poster-19-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-19.jpg" alt="I'm Wide Awake poster"></label>
+            <label for="poster-20-toggle" class="poster-thumb"><img src="images/graphic-design/thumb/poster-20.jpg" alt="No, You Won't Do the Same poster"></label>
+            
+          
+            
+            
+          </div>
+        </article>
+
+        <!-- Lightbox popups — one per poster. Each stays hidden (display:
+             none in styles.css) until its matching checkbox is checked. -->
+        <input type="checkbox" id="poster-01-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-01">
+          <label for="poster-01-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-01.png" alt="2-A class icon">
+            <figcaption>2-A Class Icon</figcaption>
+          </figure>
+          <label for="poster-01-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-02-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-02">
+          <label for="poster-02-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-02.png" alt="3-A class icon">
+            <figcaption>3-A Class Icon</figcaption>
+          </figure>
+          <label for="poster-02-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-03-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-03">
+          <label for="poster-03-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-03.jpg" alt="Mr. CCS pageant poster, Alecson Felicilda">
+            <figcaption>Mr. CCS — Alecson Felicilda</figcaption>
+          </figure>
+          <label for="poster-03-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-04-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-04">
+          <label for="poster-04-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-04.jpg" alt="Bizarre poster, red edition">
+            <figcaption>Bizarre — Red Edition</figcaption>
+          </figure>
+          <label for="poster-04-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-05-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-05">
+          <label for="poster-05-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-05.jpg" alt="Bizarre poster, cyber edition">
+            <figcaption>Bizarre — Cyber Edition</figcaption>
+          </figure>
+          <label for="poster-05-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-06-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-06">
+          <label for="poster-06-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-06.jpg" alt="Goodluck IT-2A poster">
+            <figcaption>Goodluck, IT-2A</figcaption>
+          </figure>
+          <label for="poster-06-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-07-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-07">
+          <label for="poster-07-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-07.jpg" alt="Butter With Better logo stamp">
+            <figcaption>Buetter With Butter — Logo Stamp</figcaption>
+          </figure>
+          <label for="poster-07-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-08-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-08">
+          <label for="poster-08-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-08.jpg" alt="Dean's Lister congratulations post">
+            <figcaption>Dean's Lister</figcaption>
+          </figure>
+          <label for="poster-08-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-09-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-09">
+          <label for="poster-09-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-09.jpg" alt="Ms. CCS pageant poster, Danielle Frell Erojo">
+            <figcaption>Ms. CCS — Danielle Frell Erojo</figcaption>
+          </figure>
+          <label for="poster-09-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-10-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-10">
+          <label for="poster-10-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-10.jpg" alt="I'm Not a Phase poster">
+            <figcaption>I'm Not a Phase</figcaption>
+          </figure>
+          <label for="poster-10-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-11-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-11">
+          <label for="poster-11-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-11.jpg" alt="Mr. and Ms. BSIT 2A poster">
+            <figcaption>Mr. &amp; Ms. BSIT 2A</figcaption>
+          </figure>
+          <label for="poster-11-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-12-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-12">
+          <label for="poster-12-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-12.png" alt="Heart icon">
+            <figcaption>Heart Icon</figcaption>
+          </figure>
+          <label for="poster-12-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-13-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-13">
+          <label for="poster-13-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-13.jpg" alt="Paikot-ikot Lang poster">
+            <figcaption>Paikot-ikot Lang</figcaption>
+          </figure>
+          <label for="poster-13-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-14-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-14">
+          <label for="poster-14-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-14.jpg" alt="Maikee's Letter poster">
+            <figcaption>Maikee's Letter</figcaption>
+          </figure>
+          <label for="poster-14-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-15-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-15">
+          <label for="poster-15-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-15.jpg" alt="Memoire poster">
+            <figcaption>Mediocre</figcaption>
+          </figure>
+          <label for="poster-15-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-16-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-16">
+          <label for="poster-16-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-16.jpg" alt="Stop Hiding poster">
+            <figcaption>Stop Hiding</figcaption>
+          </figure>
+          <label for="poster-16-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-17-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-17">
+          <label for="poster-17-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-17.jpg" alt="The Man Who Can't Be Moved poster">
+            <figcaption>The Man Who Can't Be Moved</figcaption>
+          </figure>
+          <label for="poster-17-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-18-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-18">
+          <label for="poster-18-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-18.jpg" alt="Welcome BSIT-2A poster">
+            <figcaption>Welcome, BSIT-2A</figcaption>
+          </figure>
+          <label for="poster-18-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-19-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-19">
+          <label for="poster-19-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-19.jpg" alt="I'm Wide Awake poster">
+            <figcaption>I'm Wide Awake</figcaption>
+          </figure>
+          <label for="poster-19-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+        <input type="checkbox" id="poster-20-toggle" class="visually-hidden-input">
+        <div class="lightbox" id="poster-20">
+          <label for="poster-20-toggle" class="lightbox-backdrop" aria-hidden="true"></label>
+          <figure>
+            <img src="images/graphic-design/full/poster-20.jpg" alt="No, You Won't Do the Same poster">
+            <figcaption>No, You Won't Do the Same</figcaption>
+          </figure>
+          <label for="poster-20-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+
+        
+
+        
+
+
+
+    <!-- ============ SKILLS ============ -->
+    <section class="skills" id="skills">
+          </figure>
+          <label for="poster-39-toggle" class="lightbox-close" aria-label="Close">✕</label>
+        </div>
+
+        
+
+
+
+    <!-- ============ SKILLS ============ -->
+    <section class="skills" id="skills">
+      <p class="eyebrow">Skills</p>
+      <h2>TOOLS &amp; TECHNOLOGIES</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>DEVELOPMENT</h3>
+          <ul>
+            <li>HTML &amp; CSS, Php</li>
+            <li>C#, Visual Basic</li>
+            <li>Guna UI, Bunifu UI, Claude Ai</li>
+            <li>Visual Studio, Visual Studio Code</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>DESIGN</h3>
+          <ul>
+            <li>Figma</li>
+            <li>Photoshop</li>
+            <li>Illustrator</li>
+            <li>Canva</li>
+            <li>Color &amp; typography systems</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>CONTENT CREATION</h3>
+          <ul>
+            <li>CapCut</li>
+            <li>Davinci Resolve</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact">
+      <p class="eyebrow">Contact</p>
+      <h2>Let's connect</h2>
+      <p class="contact-sub">Open to internship opportunities, collabs, or just talking shop about design.</p>
+      <div class="contact-links">
+        <a href="mailto:youremail@example.com" class="contact-pill">Email</a>
+        <a href="https://www.facebook.com/benben.coles.7" class="contact-pill" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://www.instagram.com/kaisr.png/" class="contact-pill" target="_blank" rel="noopener noreferrer">Instagram</a>
+        
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Kaiser. Built with HTML &amp; CSS — no JavaScript.</p>
+  </footer>
+
+</body>
+</html>

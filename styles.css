@@ -1,0 +1,858 @@
+/* =========================================================
+   KAISER — PORTFOLIO TEMPLATE
+   =========================================================
+   This is a plain HTML + CSS website. There is no JavaScript
+   anywhere — every interactive bit (dark/light mode, the
+   mobile menu, and the poster lightbox) is done with what's
+   nicknamed the "checkbox hack":
+
+     1. Put an invisible <input type="checkbox"> in the HTML.
+     2. Point a visible <label for="..."> at that checkbox.
+     3. Clicking the label toggles the checkbox, exactly like
+        clicking a real checkbox would.
+     4. CSS then reads whether that checkbox is :checked and
+        changes how things look based on that — using either
+        the ~ (general sibling) selector, or html:has(...)
+        when the thing we need to change isn't a sibling.
+
+   No JS engine needed, no click events to wire up — the
+   browser's built-in checkbox behavior does all the work.
+
+   Quick map of this file, top to bottom:
+     - Fonts                  → @font-face rules
+     - Design tokens           → :root variables (colors, etc.)
+     - Dark mode override      → flips those same variables
+     - Reset + base styles
+     - Nav bar + mobile menu
+     - Dark/light switch
+     - Hero section + avatar hover effect
+     - About / Interests / Projects sections
+     - Poster gallery + lightbox popups
+     - Skills / Contact / Footer
+     - Responsive (mobile) overrides at the very bottom
+   ========================================================= */
+
+/* ---------- CUSTOM FONTS ----------
+   Local font files live in /fonts. Keep that folder sitting
+   next to this stylesheet or these paths break. */
+@font-face {
+  font-family: 'Futura PT Book';
+  src: url('fonts/FuturaPTBook.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  /* This file's internal name is "Futura-Black" — a separate bold
+     display cut of Futura, not just a bold weight of Futura PT. */
+  font-family: 'Futura Black';
+  src: url('fonts/unicode_futurabb.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- DESIGN TOKENS ---------- */
+:root {
+  /* Light mode (default) */
+  --bg: #F3EEE3;
+  --bg-soft: #EAE3D3;
+  --surface: #FFFBF2;
+  --text: #1B1F2A;
+  --text-soft: #4B4F5C;
+  --border: #DCD3BC;
+
+  --accent: #D4AF37;       /* the actual gold from the YouTube brand */
+  --accent-ink: #8a6d1d;
+  --secondary: #2C5F6F;    /* muted teal, used sparingly */
+
+  --shadow: 0 1px 2px rgba(27,31,42,0.05), 0 8px 24px rgba(27,31,42,0.06);
+
+  --font-display: 'Futura Black', 'Futura PT Book', sans-serif;
+  --font-body: 'Futura PT Book', sans-serif;
+  --font-label: 'Poppins', sans-serif;
+
+  --radius: 14px;
+  --max-width: 1100px;
+
+  --transition-fast: 0.2s ease;
+  --transition-mode: 0.35s ease;
+}
+
+/* ---------- DARK MODE — flips the tokens above ---------- */
+html:has(#mode-toggle:checked) {
+  --bg: #11131C;
+  --bg-soft: #161926;
+  --surface: #181B26;
+  --text: #EDE6D6;
+  --text-soft: #A8A6B8;
+  --border: #2A2E40;
+
+  --accent: #D4AF37;
+  --accent-ink: #F4D976;
+  --secondary: #6FAEC2;
+
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 28px rgba(0,0,0,0.4);
+}
+
+/* ---------- RESET ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background var(--transition-mode), color var(--transition-mode);
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+ul { list-style: none; }
+
+.visually-hidden-input {
+  position: absolute;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Respect users who'd rather not see motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible, label:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- LAYOUT HELPERS ---------- */
+section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 96px 24px;
+}
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; }
+
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: clamp(28px, 4vw, 38px);
+  margin-bottom: 40px;
+}
+
+.fill-in {
+  border-bottom: 1.5px dashed var(--accent);
+  color: var(--accent-ink);
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+}
+
+.tag-small { padding: 5px 12px; font-size: 11.5px; }
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 13px 26px;
+  border-radius: 100px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #1B1F2A;
+}
+
+.btn-ghost {
+  border: 1.5px solid var(--border);
+  color: var(--text);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- NAV ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.nav-brand .dot { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-links a {
+  color: var(--text-soft);
+  transition: color var(--transition-fast);
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* mobile burger — hidden on desktop */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.nav-burger span {
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+/* ---------- MODE TOGGLE LOGIC ---------- */
+.mode-switch { cursor: pointer; flex-shrink: 0; }
+
+.mode-switch-track {
+  width: 52px;
+  height: 28px;
+  border-radius: 100px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  transition: background var(--transition-mode);
+}
+
+.mode-switch-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1B1F2A;
+  transition: transform var(--transition-mode);
+}
+
+.mode-switch-thumb svg { width: 13px; height: 13px; }
+.icon-moon { display: none; }
+
+/* When checked: slide the thumb right and swap sun -> moon */
+html:has(#mode-toggle:checked) .mode-switch-thumb {
+  transform: translateX(22px);
+}
+html:has(#mode-toggle:checked) .icon-sun { display: none; }
+html:has(#mode-toggle:checked) .icon-moon { display: block; }
+
+/* ---------- HERO ---------- */
+.hero { padding-top: 72px; }
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-text h1 {
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+
+.accent { color: var(--accent-ink); }
+
+.hero-tagline {
+  font-size: 17px;
+  color: var(--text-soft);
+  max-width: 480px;
+  margin-bottom: 26px;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* ---------- AVATAR — the signature interaction ---------- */
+.hero-avatar { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+
+.avatar-frame {
+  position: relative;
+  width: min(430px, 80vw);
+  height: min(430px, 80vw);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 4px solid var(--surface);
+}
+
+.avatar-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity var(--transition-mode);
+}
+
+/* default visible layer: light mode, no hover */
+.avatar-light-default { opacity: 1; }
+
+/* hover, still light mode */
+.avatar-frame:hover .avatar-light-default { opacity: 0; }
+.avatar-frame:hover .avatar-light-hover { opacity: 1; }
+
+/* dark mode, no hover */
+html:has(#mode-toggle:checked) .avatar-light-default { opacity: 0; }
+html:has(#mode-toggle:checked) .avatar-dark-default { opacity: 1; }
+
+/* dark mode + hover */
+html:has(#mode-toggle:checked) .avatar-frame:hover .avatar-dark-default { opacity: 0; }
+html:has(#mode-toggle:checked) .avatar-frame:hover .avatar-dark-hover { opacity: 1; }
+
+/* without this, the light-hover layer (rule above) would also fire in dark mode
+   and sit on top of the dark-hover layer, since it has no "light mode only" condition */
+html:has(#mode-toggle:checked) .avatar-frame:hover .avatar-light-hover { opacity: 0; }
+
+.avatar-caption {
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+}
+
+/* ---------- ABOUT ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-text { color: var(--text-soft); font-size: 16px; }
+
+.quick-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-left: 2px solid var(--border);
+  padding-left: 24px;
+}
+
+.quick-facts li { display: flex; flex-direction: column; gap: 2px; }
+
+.fact-label {
+  font-family: var(--font-label);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+/* ---------- INTERESTS ---------- */
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.interest-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 24px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.interest-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.interest-card h3 { font-size: 18px; margin-bottom: 8px; }
+.interest-card p { font-size: 14.5px; color: var(--text-soft); }
+
+/* ---------- PROJECTS ---------- */
+
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.project-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.project-card-head h3 { font-size: 20px; }
+
+.project-card p {
+  color: var(--text-soft);
+  margin-bottom: 16px;
+  max-width: 720px;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-family: var(--font-label);
+  color: var(--secondary);
+}
+
+.project-meta li::before { content: "— "; }
+
+.project-link {
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-ink);
+  transition: opacity var(--transition-fast);
+}
+
+.project-link:hover { opacity: 0.7; }
+
+/* ---------- POSTER GALLERY ---------- */
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.poster-thumb {
+  display: block;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.poster-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster-thumb:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- LIGHTBOX (pure CSS, driven by hidden checkboxes) ----------
+   Each poster has its own hidden checkbox sitting right before its
+   .lightbox div in index.html (look for id="poster-01-toggle", etc).
+   A .lightbox is invisible (display: none, set below) until that one
+   checkbox gets checked — and the only way to check it is by clicking
+   the poster thumbnail, which is a <label> pointing at it.
+
+   This used to be done with :target (a link to "#poster-01" that the
+   browser would jump to), but jumping to a target also means the
+   browser SCROLLS the page there, and closing it the same way scrolled
+   all the way back to the top. Checkboxes never touch the page's scroll
+   position, so the popup now opens and closes without moving the page
+   at all. We write one small rule per poster because each checkbox can
+   only control its own matching lightbox. */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#poster-01-toggle:checked ~ #poster-01,
+#poster-02-toggle:checked ~ #poster-02,
+#poster-03-toggle:checked ~ #poster-03,
+#poster-04-toggle:checked ~ #poster-04,
+#poster-05-toggle:checked ~ #poster-05,
+#poster-06-toggle:checked ~ #poster-06,
+#poster-07-toggle:checked ~ #poster-07,
+#poster-08-toggle:checked ~ #poster-08,
+#poster-09-toggle:checked ~ #poster-09,
+#poster-10-toggle:checked ~ #poster-10,
+#poster-11-toggle:checked ~ #poster-11,
+#poster-12-toggle:checked ~ #poster-12,
+#poster-13-toggle:checked ~ #poster-13,
+#poster-14-toggle:checked ~ #poster-14,
+#poster-15-toggle:checked ~ #poster-15,
+#poster-16-toggle:checked ~ #poster-16,
+#poster-17-toggle:checked ~ #poster-17,
+#poster-18-toggle:checked ~ #poster-18,
+#poster-19-toggle:checked ~ #poster-19,
+#poster-20-toggle:checked ~ #poster-20
+ {
+  display: flex;
+}
+
+/* Puyit lightbox — same checkbox-hack pattern as the posters above.
+   The checkbox sits inside .puyit-preview, so we use html:has() to
+   reach the fixed lightbox which is also inside that same container. */
+html:has(#puyit-img-toggle:checked) #puyit-lightbox {
+  display: flex;
+}
+
+/* Puyit lightbox — same checkbox-hack pattern as the posters above.
+   The checkbox sits inside .puyit-preview, so we use html:has() to
+   reach the fixed lightbox which is also inside that same container. */
+html:has(#puyit-img-toggle:checked) #puyit-lightbox {
+  display: flex;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 14, 0.88);
+  cursor: zoom-out;
+}
+
+.lightbox figure {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 88vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.lightbox figcaption {
+  font-family: var(--font-label);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  color: #EDE6D6;
+  background: rgba(0,0,0,0.4);
+  padding: 6px 16px;
+  border-radius: 100px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 22px;
+  right: 28px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+  transition: background var(--transition-fast);
+}
+
+.lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+@media (max-width: 640px) {
+  .poster-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+}
+
+/* ---------- PUYIT PRESENTATION IMAGE ---------- */
+.puyit-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0 22px;
+}
+
+.puyit-thumb {
+  display: block;
+  cursor: zoom-in;
+  border-radius: 10px;
+  overflow: hidden;
+  width: min(480px, 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.puyit-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.puyit-thumb:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+}
+
+.puyit-caption {
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+  margin-top: 10px;
+}
+
+/* ---------- PUYIT PRESENTATION IMAGE ----------
+   A single centered screenshot inside the project card,
+   clickable with the same CSS-only lightbox as the posters.
+   The checkbox lives inside .puyit-preview so the poster
+   sibling selector (~ combinator) can't reach #puyit-lightbox —
+   we use html:has() instead, same trick as the dark mode toggle. */
+.puyit-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0 22px;
+}
+
+.puyit-thumb {
+  display: block;
+  cursor: zoom-in;
+  border-radius: 10px;
+  overflow: hidden;
+  width: min(480px, 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.puyit-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.puyit-thumb:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+}
+
+.puyit-caption {
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+  margin-top: 10px;
+}
+
+/* ---------- SKILLS ---------- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.skill-group h3 {
+  font-size: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+.skill-group ul { display: flex; flex-direction: column; gap: 8px; }
+.skill-group li { color: var(--text-soft); font-size: 14.5px; }
+
+/* ---------- CONTACT ---------- */
+.contact {
+  text-align: center;
+}
+
+.contact-sub {
+  color: var(--text-soft);
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+
+.contact-links { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+.contact-pill {
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.contact-pill:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  text-align: center;
+  padding: 32px 24px 48px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-text { order: 2; text-align: center; }
+  .hero-avatar { order: 1; }
+  .hero-tags, .hero-actions { justify-content: center; }
+
+  .about-grid { grid-template-columns: 1fr; }
+  .quick-facts { border-left: none; padding-left: 0; border-top: 2px solid var(--border); padding-top: 20px; }
+
+  .interest-grid { grid-template-columns: repeat(2, 1fr); }
+  .skills-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (max-width: 640px) {
+  section { padding: 64px 20px; }
+  .interest-grid { grid-template-columns: 1fr; }
+
+  .hero { padding-top: 40px; }
+
+  .hero-text h1 { font-size: clamp(28px, 8vw, 40px); }
+
+  .project-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-card-head h3 { font-size: 16px; }
+
+  .nav-burger { display: flex; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 24px 20px;
+    gap: 16px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-mode);
+  }
+
+  /* mobile menu open state, same checkbox-hack pattern */
+  html:has(#nav-toggle:checked) .nav-links {
+    max-height: 260px;
+  }
+
+  html:has(#nav-toggle:checked) .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  html:has(#nav-toggle:checked) .nav-burger span:nth-child(2) { opacity: 0; }
+  html:has(#nav-toggle:checked) .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
