@@ -583,7 +583,8 @@ html:has(#mode-toggle:checked) .avatar-frame:hover .avatar-light-hover { opacity
 #poster-17-toggle:checked ~ #poster-17,
 #poster-18-toggle:checked ~ #poster-18,
 #poster-19-toggle:checked ~ #poster-19,
-#poster-20-toggle:checked ~ #poster-20
+#poster-20-toggle:checked ~ #poster-20,
+#poster-21-toggle:checked ~ #poster-21
  {
   display: flex;
 }
